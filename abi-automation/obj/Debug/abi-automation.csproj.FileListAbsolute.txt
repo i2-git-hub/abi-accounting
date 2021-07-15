@@ -1,0 +1,12 @@
+\\i2s111-ctfile1\Production\Manufacturing Software\Accounting\abi-automation\abi-automation\abi-automation\bin\Debug\abi-automation.exe.config
+\\i2s111-ctfile1\Production\Manufacturing Software\Accounting\abi-automation\abi-automation\abi-automation\bin\Debug\abi-automation.exe
+\\i2s111-ctfile1\Production\Manufacturing Software\Accounting\abi-automation\abi-automation\abi-automation\bin\Debug\abi-automation.pdb
+\\i2s111-ctfile1\Production\Manufacturing Software\Accounting\abi-automation\abi-automation\abi-automation\obj\Debug\abi-automation.csprojAssemblyReference.cache
+\\i2s111-ctfile1\Production\Manufacturing Software\Accounting\abi-automation\abi-automation\abi-automation\obj\Debug\abi-automation.csproj.CoreCompileInputs.cache
+\\i2s111-ctfile1\Production\Manufacturing Software\Accounting\abi-automation\abi-automation\abi-automation\obj\Debug\abi-automation.exe
+\\i2s111-ctfile1\Production\Manufacturing Software\Accounting\abi-automation\abi-automation\abi-automation\obj\Debug\abi-automation.pdb
+\\i2s111-ctfile1\Production\Manufacturing Software\Accounting\abi-automation\abi-automation\abi-automation\bin\Debug\BitMiracle.Docotic.Pdf.dll
+\\i2s111-ctfile1\Production\Manufacturing Software\Accounting\abi-automation\abi-automation\abi-automation\bin\Debug\BitMiracle.Docotic.Pdf.xml
+\\i2s111-ctfile1\Production\Manufacturing Software\Accounting\abi-automation\abi-automation\abi-automation\obj\Debug\abi-automation.csproj.CopyComplete
+\\i2s111-ctfile1\Production\Manufacturing Software\Accounting\abi-automation\abi-automation\abi-automation\bin\Debug\i2.accounting.sdk.dll
+\\i2s111-ctfile1\Production\Manufacturing Software\Accounting\abi-automation\abi-automation\abi-automation\bin\Debug\i2.accounting.sdk.pdb
