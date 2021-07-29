@@ -10,3 +10,15 @@
 \\i2s111-ctfile1\Production\Manufacturing Software\Accounting\abi-automation\abi-automation\abi-automation\obj\Debug\abi-automation.csproj.CopyComplete
 \\i2s111-ctfile1\Production\Manufacturing Software\Accounting\abi-automation\abi-automation\abi-automation\bin\Debug\i2.accounting.sdk.dll
 \\i2s111-ctfile1\Production\Manufacturing Software\Accounting\abi-automation\abi-automation\abi-automation\bin\Debug\i2.accounting.sdk.pdb
+C:\Projects\abi-accounting-automation\abi-automation\bin\Debug\abi-automation.exe.config
+C:\Projects\abi-accounting-automation\abi-automation\bin\Debug\abi-automation.exe
+C:\Projects\abi-accounting-automation\abi-automation\bin\Debug\abi-automation.pdb
+C:\Projects\abi-accounting-automation\abi-automation\bin\Debug\BitMiracle.Docotic.Pdf.dll
+C:\Projects\abi-accounting-automation\abi-automation\bin\Debug\BitMiracle.Docotic.Pdf.xml
+C:\Projects\abi-accounting-automation\abi-automation\bin\Debug\i2.accounting.sdk.pdb
+C:\Projects\abi-accounting-automation\abi-automation\obj\Debug\abi-automation.csprojAssemblyReference.cache
+C:\Projects\abi-accounting-automation\abi-automation\obj\Debug\abi-automation.csproj.CoreCompileInputs.cache
+C:\Projects\abi-accounting-automation\abi-automation\obj\Debug\abi-automation.csproj.CopyComplete
+C:\Projects\abi-accounting-automation\abi-automation\obj\Debug\abi-automation.exe
+C:\Projects\abi-accounting-automation\abi-automation\obj\Debug\abi-automation.pdb
+C:\Projects\abi-accounting-automation\abi-automation\bin\Debug\i2.accounting.sdk.dll

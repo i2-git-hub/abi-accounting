@@ -13,7 +13,7 @@ namespace abi_automation
         static string[] file_entries;
         static string final_file_name;
         static file_paths _file_paths;
-        static Vendor_Functions _vendor_function;
+        static i2_vendor_functions _vendor_function;
         static void Main(string[] args)
         {
             Console.WriteLine("Reading File Directory....");
@@ -31,6 +31,7 @@ namespace abi_automation
             {
                 try
                 {
+                    //Console.WriteLine(fileName);
                     processFile(fileName);
                 }
                 catch(Exception er)
@@ -50,31 +51,102 @@ namespace abi_automation
         static void on_start(string pdfFile, string textFile)
         {
             pdfFile = pdfFile.Replace("\r\n", string.Empty);
-            using (BitMiracle.Docotic.Pdf.PdfDocument doc = new BitMiracle.Docotic.Pdf.PdfDocument(pdfFile))
+            try
             {
-                string text = doc.GetTextWithFormatting();
-                File.WriteAllText(textFile, text);
+                using (BitMiracle.Docotic.Pdf.PdfDocument doc = new BitMiracle.Docotic.Pdf.PdfDocument(pdfFile))
+                {
+                    string text = doc.GetTextWithFormatting();
+                    File.WriteAllText(textFile, text);
+                }
+            }
+            catch(Exception er)
+            {
+                /*
+                 * DO NOTHING
+                 * BIT MIRACLE PUTS OUT AN ERROR THAT WE KNOW ABOUT 
+                 * UNLESS IT STARTS TO AFFECT ACTUAL PDF PARSING
+                 * THEN WE ARE OKAY
+                 */
             }
         }
 
         static void identify_vendor(string textFile)
         {
-            _vendor_function = new Vendor_Functions();
+            Double invoice_tariff = 0;
+            _vendor_function = new i2_vendor_functions();
             bool heilind_bool_value = _vendor_function.vendor_identifying_function(textFile, "Heilind Electronics, Inc.");
             if(heilind_bool_value == true)
             {
                 final_file_name = _vendor_function.find_invoice_using_skip_method_with_substring_values(textFile, 19, 1, 0, 6, "_heilind_");
-                Double invoice_total_with_tariff = Convert.ToDouble(_vendor_function.find_invoice_total_using_keyword_split_array_indexing(textFile, "NET SALES", 'D', 1)) + Convert.ToDouble(_vendor_function.find_tariff_value(textFile));
-                final_file_name = final_file_name + Convert.ToString(invoice_total_with_tariff);
+                try
+                {
+                    Double invoice_total_with_tariff = Convert.ToDouble(_vendor_function.find_invoice_total_using_keyword_split_array_indexing(textFile, "NET SALES", 'D', 1)) + Convert.ToDouble(_vendor_function.find_tariff_value(textFile));
+                    final_file_name = final_file_name + Convert.ToString(invoice_total_with_tariff);
+                }
+                catch(Exception er)
+                {
+                    Double invoice_total_pre_tariff = Convert.ToDouble(_vendor_function.find_invoice_total_using_keyword_split_array_indexing_error_handler(textFile, "NET SALES", 'D', 1));
+                    try
+                    {
+                        invoice_tariff = Convert.ToDouble(_vendor_function.find_tariff_value(textFile));
+                    }
+                    catch(Exception ex)
+                    {
+                        invoice_tariff = Convert.ToDouble(_vendor_function.find_tariff_value_error_handler(textFile));
+                    }
+                    Double invoice_total_with_tariff = invoice_total_pre_tariff + invoice_tariff;
+                    final_file_name = final_file_name + Convert.ToString(invoice_total_with_tariff);
+                }
                 rename_file(final_file_name);
+            }
+            bool db_roberts_value = _vendor_function.vendor_identifying_function(textFile, "D. B. Roberts, Inc.");
+            if(db_roberts_value == true)
+            {
+                final_file_name = _vendor_function.find_invoice_using_skip_method_with_substring_values(textFile, 20, 1, 0, 6, "");
+                if(final_file_name == "OrderD")
+                {
+                    final_file_name = _vendor_function.find_invoice_using_skip_method_with_substring_values(textFile, 19, 1, 0, 6, "");
+                }
+                final_file_name = final_file_name + "_db_roberts_";
+                try
+                {
+                    Double invoice_total_with_tariff = Convert.ToDouble(_vendor_function.find_invoice_total_using_keyword_split_array_indexing(textFile, "NET SALES", 'D', 1));
+                    final_file_name = final_file_name + Convert.ToString(invoice_total_with_tariff);
+                }
+                catch (Exception er)
+                {
+                    Double invoice_total = Convert.ToDouble(_vendor_function.find_invoice_total_using_keyword_split_array_indexing_error_handler(textFile, "NET SALES", 'D', 1));
+                    final_file_name = final_file_name + Convert.ToString(invoice_total);
+                }
+                rename_file(final_file_name);
+            }
+            bool tti_value = _vendor_function.vendor_identifying_function(textFile, "TTI, INC.");
+            if(tti_value == true)
+            {
+                final_file_name = _vendor_function.find_invoice(textFile, 4, '/', 0, 2, "_tti_");
+                final_file_name = final_file_name + _vendor_function.find_invoice_total_using_new_string_split_method(textFile, "THIS AMOUNT", 0);
+                rename_file(final_file_name);
+            }
+            bool anixter_value = _vendor_function.vendor_identifying_function(textFile, "ANIXTER");
+            if(anixter_value == true)
+            {
+                final_file_name = _vendor_function.find_invoice(textFile, 2,'/', 0,0,"_anixter_");
+                Console.WriteLine(final_file_name);
             }
         }
 
         static void rename_file(string final_file_path)
         {
-            final_file_name = _file_paths._directiory_path + final_file_path + ".pdf";
-            File.Move(pdf_file_location, final_file_name);
-            final_file_name = "";
+            try
+            {
+                final_file_name = _file_paths._directiory_path + final_file_path + ".pdf";
+                File.Move(pdf_file_location, final_file_name);
+                final_file_name = "";
+            }
+            catch(Exception er)
+            {
+                Console.WriteLine(er.Message);
+            }
         }
 
 

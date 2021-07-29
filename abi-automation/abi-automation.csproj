@@ -36,8 +36,9 @@
     <Reference Include="BitMiracle.Docotic.Pdf, Version=8.1.12215.0, Culture=neutral, PublicKeyToken=221650e173990c07, processorArchitecture=MSIL">
       <HintPath>..\packages\BitMiracle.Docotic.Pdf.8.1.12215\lib\net46\BitMiracle.Docotic.Pdf.dll</HintPath>
     </Reference>
-    <Reference Include="i2.accounting.sdk">
-      <HintPath>..\..\..\..\i2-sdk\i2.accounting.sdk\i2.accounting.sdk\bin\Release\netstandard2.0\i2.accounting.sdk.dll</HintPath>
+    <Reference Include="i2.accounting.sdk, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\i2-accounting-sdk\i2.accounting.sdk\bin\Release\netstandard2.0\i2.accounting.sdk.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
