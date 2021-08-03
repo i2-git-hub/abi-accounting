@@ -1,0 +1,48 @@
+Private WithEvents olItems As Outlook.Items
+
+
+Private Sub Application_Startup()
+
+Dim olApp As Outlook.Application
+Dim olNS As Outlook.NameSpace
+
+Set olApp = Outlook.Application
+Set olNS = olApp.GetNamespace("MAPI")
+Set olItems = olNS.GetDefaultFolder(olFolderInbox).Items
+
+Debug.Print "Application_Startup triggered " & Now()
+
+
+End Sub
+
+Private Sub olItems_ItemAdd(ByVal item As Object)
+
+Dim my_outlook_mail As Outlook.MailItem
+Dim olAtt As Outlook.Attachment
+Dim text_file, new_file_name As String
+text_file = "\\I2s111-ctfile1\ap\2 i2 VENDOR INVOICES\Outlook_Automation_Files\ap_invoice_pdf_loc.txt"
+Dim fso, fileStream
+Dim program_path As String
+program_path = "\\i2s111-ctfile1\Production\Manufacturing Software\Payroll_Automation\v.1.0.0\ConsoleApp1\ConsoleApp1\bin\Release\ConsoleApp1.exe"
+Dim strArgument As String
+strArgument = "/G"
+
+
+If TypeName(item) = "MailItem" Then
+
+        Set my_outlook_mail = item
+        Debug.Print my_outlook_mail.Subject
+        For Each olAtt In my_outlook_mail.Attachments
+            If Right(LCase(olAtt.FileName), 4) = ".pdf" Then
+                    new_file_name = "\\i2s111-ctfile1\AP\2 ABI Vendor Invoices\open-email-invoices\" & olAtt.FileName
+                    olAtt.SaveAsFile new_file_name
+                    Set fso = CreateObject("Scripting.FileSystemObject")
+                    Set fileStream = fso.OpenTextFile(text_file, ForWriting, True)
+                     fileStream.WriteLine (new_file_name)
+                    fileStream.Close
+            End If
+        Next olAtt
+        Set my_outlook_mail = Nothing
+End If
+
+End Sub

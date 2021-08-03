@@ -16,9 +16,11 @@ C:\Projects\abi-accounting-automation\abi-automation\bin\Debug\abi-automation.pd
 C:\Projects\abi-accounting-automation\abi-automation\bin\Debug\BitMiracle.Docotic.Pdf.dll
 C:\Projects\abi-accounting-automation\abi-automation\bin\Debug\BitMiracle.Docotic.Pdf.xml
 C:\Projects\abi-accounting-automation\abi-automation\bin\Debug\i2.accounting.sdk.pdb
-C:\Projects\abi-accounting-automation\abi-automation\obj\Debug\abi-automation.csprojAssemblyReference.cache
 C:\Projects\abi-accounting-automation\abi-automation\obj\Debug\abi-automation.csproj.CoreCompileInputs.cache
 C:\Projects\abi-accounting-automation\abi-automation\obj\Debug\abi-automation.csproj.CopyComplete
 C:\Projects\abi-accounting-automation\abi-automation\obj\Debug\abi-automation.exe
 C:\Projects\abi-accounting-automation\abi-automation\obj\Debug\abi-automation.pdb
 C:\Projects\abi-accounting-automation\abi-automation\bin\Debug\i2.accounting.sdk.dll
+C:\Projects\abi-accounting-automation\abi-automation\bin\Debug\BouncyCastle.Crypto.dll
+C:\Projects\abi-accounting-automation\abi-automation\bin\Debug\itextsharp.dll
+C:\Projects\abi-accounting-automation\abi-automation\bin\Debug\itextsharp.xml

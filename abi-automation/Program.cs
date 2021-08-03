@@ -4,6 +4,8 @@ using System.Text;
 using System.IO;
 using System.Threading;
 using i2.accounting.sdk;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.parser;
 
 namespace abi_automation
 {
@@ -70,6 +72,29 @@ namespace abi_automation
             }
         }
 
+        /**
+         * TBD 
+         * PARSING MULTIPLE PAGES
+         */
+        static void extractTextfromPDF(string pdfFile, string textFile)
+        {
+            try
+            {
+                using (PdfReader reader = new PdfReader(pdfFile))
+                {
+                    StringBuilder text = new StringBuilder();
+                    for (int i = 1; i <= reader.NumberOfPages; i++)
+                    {
+                        text.Append(PdfTextExtractor.GetTextFromPage(reader, i));
+                    }
+                    File.WriteAllText(textFile, text.ToString());
+                }
+            }
+            catch(PdfException er)
+            {
+
+            }
+        }
         static void identify_vendor(string textFile)
         {
             Double invoice_tariff = 0;
@@ -130,8 +155,66 @@ namespace abi_automation
             bool anixter_value = _vendor_function.vendor_identifying_function(textFile, "ANIXTER");
             if(anixter_value == true)
             {
-                final_file_name = _vendor_function.find_invoice(textFile, 2,'/', 0,0,"_anixter_");
-                Console.WriteLine(final_file_name);
+                final_file_name = _vendor_function.find_invoice_using_skip_method_with_substring_values(textFile, 1, 1, 0, 8, "_anixter_");
+                string value = _vendor_function.find_invoice_total_using_new_string_split_method(textFile, "MFT", 1)?.Replace(" ",String.Empty);
+                if(value == null)
+                {
+                    value = "no_total_found";
+                }
+                final_file_name = final_file_name + value;
+                rename_file(final_file_name);
+            }
+            bool mouser_bool = _vendor_function.vendor_identifying_function(textFile, "Mouser Electronics, Inc.");
+            if(mouser_bool == true)
+            {
+                final_file_name = _vendor_function.find_invoice_using_skip_method(textFile, 4, 1, ':', 1).Replace(" ",String.Empty).Substring(7,8) + "_mouser_";
+                try
+                {
+                    final_file_name = final_file_name + _vendor_function.find_invoice_total_using_keyword_split_array_indexing(textFile, "TAX", '$', 1);
+                }
+                catch(Exception er)
+                {
+                    final_file_name = final_file_name + "no_amount_found";
+                }
+                rename_file(final_file_name);
+            }
+            bool sager_bool = _vendor_function.vendor_identifying_function(textFile, "Sager Electronics");
+            if(sager_bool == true)
+            {
+                final_file_name = _vendor_function.find_invoice_using_skip_method(textFile, 2, 1, '/', 2).Replace(" ",String.Empty);
+                final_file_name = final_file_name.Substring(2, final_file_name.Length-2) + "_sager_";
+                final_file_name = final_file_name + _vendor_function.find_invoice_total_using_keyword_split_array_indexing(textFile, "DUE",'D',2);
+                rename_file(final_file_name);
+            }
+            bool graybar_bool = _vendor_function.vendor_identifying_function(textFile, "GRAYBAR ELECTRIC COMPANY, INC.");
+            if(graybar_bool == true)
+            {
+                final_file_name = _vendor_function.find_invoice_total_using_keyword_split_array_indexing(textFile, "Invoice No", ':', 1) + "_graybar_";
+                try
+                {
+                    string invoice_total = _vendor_function.find_invoice_total_using_new_string_split_method(textFile, "Total Due", 1)?.Replace(" ", String.Empty);
+                    if(invoice_total == null)
+                    {
+                        invoice_total = _vendor_function.find_invoice_total_using_new_string_split_method(textFile, "Total Credit DO NOT PAY", 1)?.Replace(" ", String.Empty);
+                        if(invoice_total == null)
+                        {
+                            invoice_total = "no_total_found";
+                        }
+                    }
+                    final_file_name = final_file_name + invoice_total;
+                }
+                catch (NullReferenceException er)
+                {
+                   
+                }
+                rename_file(final_file_name);
+            }
+            bool allied_bool = _vendor_function.vendor_identifying_function(textFile, "Allied Electronics Inc.");
+            if(allied_bool == true)
+            {
+                final_file_name = _vendor_function.find_invoice_total_using_keyword_split_array_indexing(textFile, "Invoice No", '.', 1).Substring(0,10) + "_allied_";
+                final_file_name = final_file_name + _vendor_function.find_invoice_total_using_keyword_split_array_indexing(textFile, "Amount Due", ')', 1);
+                rename_file(final_file_name);
             }
         }
 
